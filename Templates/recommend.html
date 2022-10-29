@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+<!-- page title-->
+{% block title %}
+  RecANIMEnder
+{% endblock %}
+{% block page_heading%}
+  RecANIMEnder
+  <!--Page heading-->
+{% endblock %}
+{% block link %}
+{% endblock %}
+{% block content %}
+{%if anime_list%}
+<div class="Heading"><h1 class="Page_heading">Here are the Animes in our Database </h1></div>
+<br>
+<div class="Search_Form">
+
+</div>   
+{%else%}
+    {%if error%}
+    <div style="margin: auto;">
+        <br>
+        <h1 class="Page_heading">Sorry We couldnt Find anything worth showing!</h1>
+        <br>
+    </div>
+    {%else%}
+        <br>
+        <div><h1 class="Page_heading">Showing Recommendations for: {{search}}</h1></div>
+        <br>
+    {%endif%}
+{%endif%}
+<div class="Anime_list">
+    <hr class="Section_sep">
+    {%for i in range(0,data|length)%}
+    <div class="an_row">
+        <div class="rank">
+            <h5 class="card_title">#{{nextpage-10+i}}</h5>
+        </div>
+        <div class="Image">
+            <img class="card_img" src="{{data[i][8]}}" alt="{{data[i][1]}}">
+        </div>
+        <div class="Details">
+            <div class ="inner_row">
+                <div class="inner_col">
+                    <h5 class="card_title"><strong>{{data[i][1]}}</strong></h5>
+                </div>
+            </div>
+            <div class ="inner_row">
+                <div class="inner_col">
+                    <h6 class="card_subtitle"> <strong>Rating : </strong>{{data[i][6]}}/10</h6>
+                </div>
+                <div class="inner_col"><h6 class="card_subtitle"> <strong>Fans: </strong>{{data[i][5]}}</h6></div>
+            </div>
+            <div class ="inner_row">
+                <div class="inner_col">
+                    <h6 class="card_subtitle"> <strong>First Aired:</strong> {{data[i][10]}}</h6>
+                </div>
+                <div class="inner_col">
+                    {%if data[i][11]%}
+                        <h6 class="card_subtitle"> <strong>Last Episode:</strong> {{data[i][11]}}</h6>
+                    {%endif%}
+                </div>
+                <div class="inner_col">
+                    <h6 class="card_subtitle"> <strong>Number of Episodes:</strong> {{data[i][4]}}</h6>
+                </div>
+            </div>
+            <div class ="inner_row">
+                <div class="inner_col">
+                    <div class="inner_col">
+                        <h6 class="card_subtitle"> <strong>Genre:  </strong>{{data[i][3]}}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class ="inner_row">
+                <div class="inner_col">
+                        <h6 class="card_subtitle"> <strong>Synopsis:</strong></h6>
+                    </div>
+                    <div class="inner_col">
+                        <h6 class="card_subtitle"> &nbsp;{{data[i][2][:110]}} <a href="{{ url_for('anime',id = data[i][0])}}">...Read More</a></h6>
+                    </div>
+                </div>
+            </div>
+        <div class="Buttons">
+            {%if data[i][14]%}
+            <div class="inner_row">
+                <div class="inner_col">
+                    <br>
+                    <h6 class="card_subtitle"> <strong>{{(((data[i][14]|float)*100)|string)[:4]}} %</strong> Match</h6>
+                    <br>
+                </div>
+            </div>
+            {%endif%}
+            <div class="inner_row">
+                <a href="{{ url_for('anime',id = data[i][0])}}"><button id="det_btn" class="btn btn-primary"><strong>Details</strong></button></a>
+            </div>
+        </div>
+    </div>
+    <hr class="Section_sep">
+    {%endfor%}
+</div>
+<br>
+    {%if anime_list%}
+        <br>
+        <center><a href="{{ url_for('anime_list',start = nextpage)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
+        <br>
+    {%else%}
+        {%if last%}
+            <center><a href="{{ url_for('anime_list',start = 0)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
+        {%else%}
+            <center><a href="{{ url_for('recommendation',uid=uid,start = nextpage,title=search)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Recommendations!</strong></button></a><center></center>
+        {%endif%}
+    {%endif%}
+    {%if email%}
+        <br>
+        <h5 class="newsletter_heading">We've Taken your notes! You can find your past recommendations in the History.</h5>
+        <br>
+    {%else%}
+    <section class="">
+        {%if anime_list%}
+            <br>
+        {%else%}
+            {%if error%}
+                <br>
+            {%else%}
+                <form action="{{ url_for('recommendation',uid=uid,start=nextpage,title=search)}}" method="post">
+                <!--Grid row-->
+                <br>
+                <h5 class="newsletter_heading">Like What you see? Type in your email to help us remember you.</h5>
+                <br>
+                <div class="row d-flex justify-content-center">
+        
+                    <!--Grid column-->
+                    <div class="col-md-5 col-12">
+                    <!-- Email input -->
+                    <div class="form-outline form-white mb-4">
+                        <input name="email" type="email" id="form5Example21" class="form-control" placeholder="Email Address">
+                    </div>
+                    </div>
+                    <!--Grid column-->
+        
+                    <!--Grid column-->
+                    <div class="col-auto">
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-outline-light mb-4">
+                        Subscribe
+                    </button>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+                </form>
+            </section>
+            {%endif%}
+        {%endif%}
+    {%endif%}
+{% endblock %}
+{% block script%}
+{% endblock %}
+{% block style %}
+<style>
+    .Page_heading{
+        color: white;
+        text-align: center;
+        font-size: 5vh;
+    }
+    .Anime_list{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .an_row{
+        display: flex;
+        flex-direction: row;
+        height: max-content;
+        justify-content: center;
+        background-color: black;
+        border-radius: 1vw;
+        width: 97vw;
+        margin: auto;
+        color: white;
+        padding-top: 1vh;
+    }
+    .Image{
+        width: 25vw;
+        height: 40vh;
+    }
+    .card_img{
+        height: 98%;
+        max-width: 20vw;
+    }
+    .Buttons{
+        margin-left: 2vw;
+        width: 10vw;
+        height: 40vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .Details{
+        width: 50vw;
+        height: 40vh;
+        padding-bottom: 2vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .rank{
+        width: 3vw;
+        height: 40vh;
+    }
+    .card_title{
+        font-size: 3.75vh;
+        width: 100%;
+        text-align: left;
+
+    }
+    .card_subtitle{
+        font-size: 2.5vh;;
+    }
+    .Section_sep{
+        height: 0;
+        border: .25vh solid white; 
+        border-left: 2vw solid transparent;
+        border-right: 2vw solid transparent;
+    }
+    .inner_row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    @media all and (max-width: 800px){
+        .an_row{
+            flex-direction: column;
+            align-content: center;
+            padding-left: 3vw;
+        }
+        .rank{
+            width: 90vw;
+            height: max-content;
+            justify-content: left;
+        }
+        .Image{
+            width: 90vw;
+            height: max-content;
+            justify-content: center;
+        }
+        .card_img{
+            margin: auto;
+            max-width: 90vw;
+        }
+        .Details{
+            width: 90vw;
+            height: max-content;
+        }
+        .inner_row{
+            margin-bottom: 1vh;
+        }
+        .Buttons{
+            margin-left: 0vw;
+            width: 90vw;
+            height: max-content;
+        }
+        .det_btn{
+            justify-self: center;
+        }
+    }
+</style>
+{% endblock %}

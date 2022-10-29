@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+<!-- page title-->
+{% block title %}
+  RecANIMEnder
+{% endblock %}
+{% block page_heading%}
+  RecANIMEnder
+  <!--Page heading-->
+{% endblock %}
+{% block link %}
+{% endblock %}
+{% block content %}
+<div class="main">
+    <h1 class="page_heading" style="color: #ffffff;">{{data[1]}}</h1>
+    <br>
+    <div class="anime_content">
+        <div class="image">
+            <img class="card_img" src="{{data[8]}}" alt="poster">
+            <br>
+            <table class="table">
+                <tr>
+                    <th>Favourite of </th>
+                    <td>{{data[7]}} Users</td>
+                </tr>
+                <tr>
+                    <th>Episodes:</th>
+                    <td>{{data[4]}}</td>
+                </tr>
+                <tr>
+                    <th>First Aired Date:</th>
+                    <td>{{data[10]}}</td>
+                </tr>
+                {%if data[11]%}
+                <tr>
+                    <th>Last Aired Date:</th>
+                        <td>{{data[11]}}</td>
+                </tr>
+                {%endif%}
+            </table>
+        </div>
+        <div class="details">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Genre:</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{{data[3]}}</td>
+                        
+                    </tr>
+                    <tr>
+                      <th>Rating:</th>
+                      <td>{{data[6]}}</td>
+                    </tr>
+                    <tr>
+                        <th>Members:</th>
+                        <td>{{data[5]}}</td>
+                    </tr>
+                    <tr>
+                        <th>Synopsis:</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>{{data[2]}}</td>
+                    </tr>
+                    <tr>
+                        {%if start%}
+                            <th><a href="{{ url_for('anime_list')}}"><button id="Redir_btn" class="btn btn-primary"><strong>Go Back to Anime List?</strong></button></a></th>
+                        {%else%}
+                            <th><a href="{{ url_for('home',start = nextpage)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Go Back to Home page?</strong></button></a></th>           
+                        {%endif%}
+                        <td><a href="{{ url_for('recommendation',uid=data[0],start = 0,title=data[1])}}"><button id="Redir_btn" class="btn btn-primary"><strong>Anime Like {{data[1]}}</strong></button></a></td>
+                        
+                    </tr>
+                    <tr>
+                        <th></th>
+                            <td></td>           
+                    </tr>
+                  </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script%}
+{% endblock %}
+{% block style %}
+<style>
+    .main{
+        display: flex;
+        flex-direction: column;
+    }
+    .page_heading{
+        font-size: 7.5vh;
+        font-weight: bolder;
+        text-align: center;
+    }
+    .anime_content{
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        height: max-content;
+        border-radius: 2vw;
+        background-color: black;
+        padding: 3vh 3vh 2vw 2vw;
+    }
+    .image{
+        width: max-content;
+        height:max-content;
+    }
+    .card_img{
+        margin-right: 1vw;
+    }
+    .details{
+        width: 60vw;
+        height: max-content;
+    }
+    .table>tr, td, th {
+    border: none;
+    }
+    .table th{
+        font-size: 3vh;
+    }
+    .table td{
+        font-size: 2.5vh;
+    }
+    .table{
+        background-color: black;
+        color: #ffffff;
+        border: none;
+        
+    }
+    #Redir_btn{
+        width: max-content;
+    }
+    @media all and (max-width: 600px) {
+        .anime_content{
+            flex-direction: column;
+            width: 95vw;
+        }
+        .card_img{
+            justify-content: center;
+            margin:auto;
+        }
+        .table{
+            width: 90vw;
+        }
+    }
+</style>
+{% endblock %}
