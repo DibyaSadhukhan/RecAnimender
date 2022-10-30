@@ -323,4 +323,4 @@ def recommend_search():
                         return flask.redirect(flask.url_for("home"))
         return flask.redirect(flask.url_for("home"))
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run()
