@@ -9,7 +9,7 @@ def available_genre():
     line=urllib.request.urlopen('https://raw.githubusercontent.com/DibyaSadhukhan/Anime_recommender_data/main/Data/genre.txt').read()        
     return str(line,'utf-8').split('||')
 def postgres_auth():
-    f = open("random_texts.txt", "r")
+    f = open("/etc/secrets/random_texts.txt", "r")
     a=f.read()
     return a.split(',')
 def get_recommendations(uid):
