@@ -12,7 +12,6 @@ app.config['SECRET_KEY']='\xd9\x06\xb5Uu\xb7 \xfb\x03\xcc$\xf1'+str(datetime.dat
 class SearchForm(Form):
         autocomp = StringField('Anime Name', id='anime_autocomplete',render_kw={"placeholder": "What's The Last Anime You've Seen?"})
         
-postgres=details.postgres_auth()
 #connecting the login sheet to backend
 #auth=details.gspread_auth()
 #gc = gspread.service_account_from_dict(auth)
@@ -324,4 +323,4 @@ def recommend_search():
                         return flask.redirect(flask.url_for("home"))
         return flask.redirect(flask.url_for("home"))
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()

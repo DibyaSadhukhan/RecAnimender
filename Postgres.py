@@ -1,6 +1,7 @@
 import psycopg2
 def postgres_auth():
-    a='livlyvdo,H_6RLgHTIQmBr8R6ECnWoFl6hTAIcM5a,satao.db.elephantsql.com,livlyvdo'
+    f = open("/etc/secrets/random_texts.txt", "r")
+    a=f.read()
     return a.split(',')
 def postgres_connect(query,commit=0):
         postgres=postgres_auth()
