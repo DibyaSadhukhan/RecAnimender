@@ -39,19 +39,13 @@
           <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('anime_list',start = 0)}}">Recommendations</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('anime_list',start = 0)}}">Browse Animes</a>
+                <a class="nav-link" href="{{ url_for('anime.anime_list',start = 0)}}">Browse Animes</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=travellerinterworld%40gmail.com&authuser=0">Contact Us</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('admin')}}">Contribute</a>
-              </li>
             </ul>
-            <form class="d-flex" action="{{ url_for('recommendation')}}" method="post">
+            <form class="d-flex" action="{{ url_for('recommend.recommendation')}}" method="post">
                 {{form.csrf_token}}
                 {{form.autocomp(autocomplete="off",required="required")}}
                 <button id="Rec_search" class="btn btn-primary" type="submit">Get Recommendations</button>
@@ -204,8 +198,12 @@
                 width: 75vw;
                 height: 5vh;
                 margin-right: .1vw;
-            
             }
+            #ui-id-1{
+              height: 30vh;
+              width: 75vw;
+              border: #ffffff;
+          }
         }
         @media all and (max-width: 340px){
         }

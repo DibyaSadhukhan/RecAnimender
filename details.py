@@ -8,10 +8,6 @@ def Form_titles():
 def available_genre():
     line=urllib.request.urlopen('https://raw.githubusercontent.com/DibyaSadhukhan/Anime_recommender_data/main/Data/genre.txt').read()        
     return str(line,'utf-8').split('||')
-def postgres_auth():
-    f = open("/etc/secrets/random_texts.txt", "r")
-    a=f.read()
-    return a.split(',')
 def get_recommendations(uid):
     line=urllib.request.urlopen('https://raw.githubusercontent.com/DibyaSadhukhan/Anime_recommender_data/main/Data/recommendations.txt').read()
     rec=[e.split(',') for e in str(line,'utf-8').split('\n')]

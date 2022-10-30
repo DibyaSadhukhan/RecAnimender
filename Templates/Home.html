@@ -33,9 +33,9 @@
       <img id="carousel_img" class="d-block w-100" src="{{carosel[i][10]}}" alt="{{i}} slide">
       <div class="carousel-caption">
         <div id="smoke_box">
-          <a href="{{ url_for('anime',id = carosel[i][0])}}"><h2 class="fet_anime_name">{{carosel[i][1]}}</h2></a>
-          <a href="{{ url_for('anime',id = carosel[i][0])}}"><h3 class="fet_anime_rating">{{carosel[i][5]}} out of 10</h3></a>
-          <a href="{{ url_for('anime',id = carosel[i][0])}}"><p class="fet_anime_syn">{{carosel[i][2][:110]}}...Read More</p></a>
+          <a href="{{ url_for('anime.anime_det',id = carosel[i][0])}}"><h2 class="fet_anime_name">{{carosel[i][1]}}</h2></a>
+          <a href="{{ url_for('anime.anime_det',id = carosel[i][0])}}"><h3 class="fet_anime_rating">{{carosel[i][5]}} out of 10</h3></a>
+          <a href="{{ url_for('anime.anime_det',id = carosel[i][0])}}"><p class="fet_anime_syn">{{carosel[i][2][:110]}}...Read More</p></a>
           <a href="{{carosel[i][9]}}"><p class="fet_anime_img">Download Banner</p></a>
         </div>
       </div>
@@ -77,7 +77,7 @@
 <hr class="Section_sep">
 <h3 class="Section_heading" style="font-size: 5vh; color:#ffffff;">First Time?</h3>
 <div class="rec_form">
-  <form class="row g-3" action="/recommend/search" method="post">
+  <form class="row g-3" action="{{ url_for('recommend.recommend_search')}}" method="post">
       <div class="col-10"> 
         <label for="inputgenre" class="form-label">Select Your Favourite Genres</label>
         <select name="genre" id="inputgenre" placeholder="Select a minimum of 1 Genre" multiple required>
@@ -135,13 +135,13 @@
       <p class="card-text">Episodes: {{cards[i][3]}}</p>
       <p class="card-text">First Aired: {{cards[i][7]}}</p>
       <br>
-      <a href="{{ url_for('anime',id = cards[i][0])}}"><button id="Card_button" class="btn btn-primary"><strong>View More!</strong></button></a>
+      <a href="{{ url_for('anime.anime_det',id = cards[i][0])}}"><button id="Card_button" class="btn btn-primary"><strong>View More!</strong></button></a>
     </div>
   </div>
   {%endfor%}
 </div>
 <br>
-<center><a href="{{ url_for('anime_list',start = 0)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
+<center><a href="{{ url_for('anime.anime_list',start = 0)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
 <br>
 {% endblock %}
 {% block script%}
@@ -192,6 +192,7 @@ a:hover{
 #carousel_img{
   width: 100vw;
   height: 90vh;
+  object-fit: cover;
 }
 @keyframes fadeIn {
   0% { opacity: 0; }

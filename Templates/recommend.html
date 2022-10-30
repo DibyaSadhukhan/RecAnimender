@@ -47,7 +47,7 @@
             </div>
             <div class ="inner_row">
                 <div class="inner_col">
-                    <h6 class="card_subtitle"> <strong>Rating : </strong>{{data[i][6]}}/10</h6>
+                    <h6 class="card_subtitle"> <strong>Rating : </strong>{{(data[i][6]|string)[:4]}}/10</h6>
                 </div>
                 <div class="inner_col"><h6 class="card_subtitle"> <strong>Fans: </strong>{{data[i][5]}}</h6></div>
             </div>
@@ -56,7 +56,7 @@
                     <h6 class="card_subtitle"> <strong>First Aired:</strong> {{data[i][10]}}</h6>
                 </div>
                 <div class="inner_col">
-                    {%if data[i][11]%}
+                    {%if (data[i][11]|string)|length>1%}
                         <h6 class="card_subtitle"> <strong>Last Episode:</strong> {{data[i][11]}}</h6>
                     {%endif%}
                 </div>
@@ -76,7 +76,7 @@
                         <h6 class="card_subtitle"> <strong>Synopsis:</strong></h6>
                     </div>
                     <div class="inner_col">
-                        <h6 class="card_subtitle"> &nbsp;{{data[i][2][:110]}} <a href="{{ url_for('anime',id = data[i][0])}}">...Read More</a></h6>
+                        <h6 class="card_subtitle"> &nbsp;{{data[i][2][:110]}} <a href="{{ url_for('anime.anime_det',id = data[i][0])}}">...Read More</a></h6>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@
             </div>
             {%endif%}
             <div class="inner_row">
-                <a href="{{ url_for('anime',id = data[i][0])}}"><button id="det_btn" class="btn btn-primary"><strong>Details</strong></button></a>
+                <a href="{{ url_for('anime.anime_det',id = data[i][0])}}"><button id="det_btn" class="btn btn-primary"><strong>Details</strong></button></a>
             </div>
         </div>
     </div>
@@ -101,13 +101,13 @@
 <br>
     {%if anime_list%}
         <br>
-        <center><a href="{{ url_for('anime_list',start = nextpage)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
+        <center><a href="{{ url_for('anime.anime_list',start = nextpage)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
         <br>
     {%else%}
         {%if last%}
-            <center><a href="{{ url_for('anime_list',start = 0)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
+            <center><a href="{{ url_for('anime.anime_list',start = 0)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Animes!</strong></button></a><center>
         {%else%}
-            <center><a href="{{ url_for('recommendation',uid=uid,start = nextpage,title=search)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Recommendations!</strong></button></a><center></center>
+            <center><a href="{{ url_for('recommend.recommendation',uid=uid,start = nextpage,title=search)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Show me more Recommendations!</strong></button></a><center></center>
         {%endif%}
     {%endif%}
     {%if email%}
@@ -122,7 +122,7 @@
             {%if error%}
                 <br>
             {%else%}
-                <form action="{{ url_for('recommendation',uid=uid,start=nextpage,title=search)}}" method="post">
+                <form action="{{ url_for('recommend.recommendation',uid=uid,start=nextpage,title=search)}}" method="post">
                 <!--Grid row-->
                 <br>
                 <h5 class="newsletter_heading">Like What you see? Type in your email to help us remember you.</h5>

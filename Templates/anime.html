@@ -15,72 +15,100 @@
     <br>
     <div class="anime_content">
         <div class="image">
-            <img class="card_img" src="{{data[8]}}" alt="poster">
+            <div class="img_holder">
+                <img class="card_img" src="{{data[8]}}" alt="poster">
+            </div>
             <br>
-            <table class="table">
-                <tr>
-                    <th>Favourite of </th>
-                    <td>{{data[7]}} Users</td>
-                </tr>
-                <tr>
-                    <th>Episodes:</th>
-                    <td>{{data[4]}}</td>
-                </tr>
-                <tr>
-                    <th>First Aired Date:</th>
-                    <td>{{data[10]}}</td>
-                </tr>
-                {%if data[11]%}
-                <tr>
-                    <th>Last Aired Date:</th>
-                        <td>{{data[11]}}</td>
-                </tr>
+            <div class="table_holder">
+                <div class="txt_row">
+                    <div class="head_col">
+                        Favourite of
+                    </div>
+                    <div class="det_col">
+                        {{data[7]}} Users
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="head_col">
+                        Episodes:
+                    </div>
+                    <div class="det_col">
+                        &nbsp;{{data[4]}}
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="head_col">
+                        First Aired Date : 
+                    </div>
+                    <div class="det_col">
+                        &nbsp;{{data[10]}}
+                    </div>
+                </div>
+                {%if (data[11]|string)|length >1 %}
+                <div class="txt_row">
+                    <div class="head_col">
+                        Last Aired Date : 
+                    </div>
+                    <div class="det_col">
+                        &nbsp;{{data[11]}}
+                    </div>
+                </div>
                 {%endif%}
-            </table>
+            </div>
         </div>
         <div class="details">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th>Genre:</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>{{data[3]}}</td>
-                        
-                    </tr>
-                    <tr>
-                      <th>Rating:</th>
-                      <td>{{data[6]}}</td>
-                    </tr>
-                    <tr>
-                        <th>Members:</th>
-                        <td>{{data[5]}}</td>
-                    </tr>
-                    <tr>
-                        <th>Synopsis:</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>{{data[2]}}</td>
-                    </tr>
-                    <tr>
-                        {%if start%}
-                            <th><a href="{{ url_for('anime_list')}}"><button id="Redir_btn" class="btn btn-primary"><strong>Go Back to Anime List?</strong></button></a></th>
-                        {%else%}
-                            <th><a href="{{ url_for('home',start = nextpage)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Go Back to Home page?</strong></button></a></th>           
-                        {%endif%}
-                        <td><a href="{{ url_for('recommendation',uid=data[0],start = 0,title=data[1])}}"><button id="Redir_btn" class="btn btn-primary"><strong>Anime Like {{data[1]}}</strong></button></a></td>
-                        
-                    </tr>
-                    <tr>
-                        <th></th>
-                            <td></td>           
-                    </tr>
-                  </tbody>
-            </table>
+            <div class="table_holder">
+                <div class="txt_row">
+                    <div class="head_col">
+                        Rating:
+                    </div>
+                    <div class="det_col">
+                        {{data[6]}}
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="head_col">
+                        Members:
+                    </div>
+                    <div class="det_col">
+                        {{data[5]}}
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="head_col">
+                        Genre:
+                    </div>
+                    <div class="det_col">
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="head_col">
+                    </div>
+                    <div class="det_col">
+                        {{data[3]}}
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="head_col">
+                        Synopsis:
+                    </div>
+                    <div class="det_col">
+                    </div>
+                </div>
+                <div class="txt_row">
+                    <div class="det_col">
+                        {{data[2]}}
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <a href="{{ url_for('recommend.recommendation',uid=data[0],start = 0,title=data[1])}}"><button id="Redir_btn" class="btn btn-primary"><strong>More Anime Like "{{data[1]}}" &nbsp;</strong></button></a></td>
+                {%if start%}
+                <a href="{{ url_for('anime.anime_list')}}"><button id="Redir_btn" class="btn btn-primary"><strong>Go Back to Anime List?</strong></button></a>
+                {%else%}
+                <a href="{{ url_for('home',start = nextpage)}}"><button id="Redir_btn" class="btn btn-primary"><strong>Go Back to Home page?</strong></button></a>          
+                {%endif%}        
+            </div>
         </div>
     </div>
 </div>
@@ -92,6 +120,7 @@
     .main{
         display: flex;
         flex-direction: column;
+        justify-content: center;
     }
     .page_heading{
         font-size: 7.5vh;
@@ -110,43 +139,62 @@
     .image{
         width: max-content;
         height:max-content;
+        max-width: 25vw;
+        display: flex;
+        flex-direction: column;
+    }
+    .table_holder{
+        display: flex;
+        flex-direction: column;
+        color: #ffffff;
+    }
+    .txt_row{
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+    }
+    .head_col{
+        font-size: 3vh;
+        font-weight: bold;
+    }
+    .det_col{
+        margin-left: 1vw;
+        font-size: 3vh;
+    }
+    .buttons{
+        justify-self: center;
     }
     .card_img{
         margin-right: 1vw;
     }
     .details{
-        width: 60vw;
+        width:max-content;
         height: max-content;
-    }
-    .table>tr, td, th {
-    border: none;
-    }
-    .table th{
-        font-size: 3vh;
-    }
-    .table td{
-        font-size: 2.5vh;
-    }
-    .table{
-        background-color: black;
-        color: #ffffff;
-        border: none;
-        
+        max-width: 60vw;
     }
     #Redir_btn{
         width: max-content;
     }
     @media all and (max-width: 600px) {
+        .page_heading{
+            font-size: 5vh;
+        }
         .anime_content{
             flex-direction: column;
             width: 95vw;
+        }
+        .image{
+            max-width: 90vw;
+        }
+        .details{
+            max-width: 90vw;
         }
         .card_img{
             justify-content: center;
             margin:auto;
         }
-        .table{
-            width: 90vw;
+        #Redir_btn{
+            margin: 1vh;
         }
     }
 </style>
