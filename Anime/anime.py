@@ -19,17 +19,20 @@ def anime_det(id):
                 start=0
         if 'email' in flask.session:
                 email=flask.session['email']
-        postgres_find_query="""SELECT * from anime.anime_list a
-                                WHERE a.uid::INTEGER = {0}
-                                LIMIT 1
-                """.format(id)
-        res,err=Postgres.postgres_connect(postgres_find_query,commit=0)
-        if len(err)==0:
-                row=[list(e) for e in res]
-        if len(row)==0:
-                return flask.redirect(flask.url_for("home"))
+        if id:
+                postgres_find_query="""SELECT * from anime.anime_list a
+                                        WHERE a.uid::INTEGER = {0}
+                                        LIMIT 1
+                        """.format(id)
+                res,err=Postgres.postgres_connect(postgres_find_query,commit=0)
+                if len(err)==0:
+                        row=[list(e) for e in res]
+                if len(row)==0:
+                        return flask.redirect(flask.url_for("home"))
+                else:
+                        return flask.render_template('anime.html',form=form,data=row[0],start=start,email=email)
         else:
-                return flask.render_template('anime.html',form=form,data=row[0],start=start,email=email)
+                return flask.redirect(flask.url_for("home"))
                 
 @anime.route('/list',methods =['POST', 'GET'])
 @anime.route('/list/<start>',methods =['POST', 'GET'])

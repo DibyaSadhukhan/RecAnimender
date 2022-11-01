@@ -62,7 +62,7 @@ def home():
                                         temp=random.randint(0,(len(item[-2].split(','))-1))
                                         item[-2]=item[-2].split(',')[temp]
                                         item[-3]=item[-3].split(',')[temp]  
-                print(datetime.datetime.now())
+                #print(datetime.datetime.now())
                 random.shuffle(Carosel)
                 return flask.render_template('Home.html',form=form,carosel=Carosel,cards=Cards\
                 ,fst_slide=random_banner[counter],carosel_length=len(Carosel),genres=details.available_genre(),email=email)      
