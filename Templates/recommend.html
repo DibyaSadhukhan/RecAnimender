@@ -25,7 +25,7 @@
     </div>
     {%else%}
         <br>
-        <div><h1 class="Page_heading">Showing Recommendations for: {{search}}</h1></div>
+        <a class="Page_link" href="{{ url_for('anime.anime_det',id = uid)}}"><div><h1 class="Page_heading">Showing Recommendations for: {{search}}</h1></div></a>
         <br>
     {%endif%}
 {%endif%}
